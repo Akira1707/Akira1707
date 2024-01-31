@@ -4,5 +4,5 @@
 format: jb-book
 root: intro
 chapters:
-- file: titanic_basic
-- file: titanic_detailed
+- file: titanic-basic
+- file: titanic-detailed
