@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1.Load data &#8212; My sample book</title>
+    <title>Titanic_basic &#8212; My sample book</title>
   
   
   
@@ -368,7 +368,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1.Load data</h1>
+    <h1>Titanic_basic</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -378,19 +378,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1.Load data</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">1.Load data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-vs-data-wrangling">2.Feature Engineering vs Data Wrangling</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-wrangling">Data Wrangling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-vs-data-wrangling">2.Feature Engineering vs Data Wrangling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-wrangling">Data Wrangling</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model">3.Model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#output">5.Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">3.Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">4.Output</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -401,10 +400,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>Đây là code đơn giản cho nhiệm vụ Titanic - Machine Learning from Disaster <a class="reference external" href="https://www.kaggle.com/competitions/titanic">https://www.kaggle.com/competitions/titanic</a></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="titanic-basic">
+<h1>Titanic_basic<a class="headerlink" href="#titanic-basic" title="Link to this heading">#</a></h1>
+<p>Đây là code đơn giản cho nhiệm vụ Titanic - Machine Learning from Disaster <a class="reference external" href="https://www.kaggle.com/competitions/titanic">https://www.kaggle.com/competitions/titanic</a></p>
 <p><img alt="Titanic Movie" src="_images/titanic.jpg" /></p>
-<section class="tex2jax_ignore mathjax_ignore" id="load-data">
-<h1>1.Load data<a class="headerlink" href="#load-data" title="Link to this heading">#</a></h1>
+<section id="load-data">
+<h2>1.Load data<a class="headerlink" href="#load-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -503,7 +504,7 @@ document.write(`
 </div>
 </div>
 <section id="exploratory-data-analysis-eda">
-<h2>Exploratory Data Analysis (EDA)<a class="headerlink" href="#exploratory-data-analysis-eda" title="Link to this heading">#</a></h2>
+<h3>Exploratory Data Analysis (EDA)<a class="headerlink" href="#exploratory-data-analysis-eda" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Categorical: Pclass, Sex, SibSp, Parch, Embarked, Survived</p></li>
 <li><p>Numerical : Age, Fare</p></li>
@@ -569,7 +570,7 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>Có thể vẽ đồ thij cho trực quan</p>
+<p>Có thể vẽ đồ thị cho trực quan</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Sex&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;Blues&#39;</span><span class="p">)</span> 
@@ -589,10 +590,10 @@ document.write(`
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="feature-engineering-vs-data-wrangling">
-<h1>2.Feature Engineering vs Data Wrangling<a class="headerlink" href="#feature-engineering-vs-data-wrangling" title="Link to this heading">#</a></h1>
+<section id="feature-engineering-vs-data-wrangling">
+<h2>2.Feature Engineering vs Data Wrangling<a class="headerlink" href="#feature-engineering-vs-data-wrangling" title="Link to this heading">#</a></h2>
 <section id="feature-engineering">
-<h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h2>
+<h3>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Tạo <strong>Title</strong> từ <strong>Name</strong></p></li>
 </ul>
@@ -774,7 +775,7 @@ Name: Deck, Length: 891, dtype: object
 </div>
 </section>
 <section id="data-wrangling">
-<h2>Data Wrangling<a class="headerlink" href="#data-wrangling" title="Link to this heading">#</a></h2>
+<h3>Data Wrangling<a class="headerlink" href="#data-wrangling" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Fare&#39;</span><span class="p">]</span>
@@ -842,8 +843,8 @@ Family_Survival has 66.99% missing values.
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="model">
-<h1>3.Model<a class="headerlink" href="#model" title="Link to this heading">#</a></h1>
+<section id="model">
+<h2>3.Model<a class="headerlink" href="#model" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>
@@ -914,8 +915,8 @@ Family_Survival has 66.99% missing values.
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="output">
-<h1>5.Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h1>
+<section id="output">
+<h2>4.Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;PassengerId&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;Survived&#39;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">})</span>
@@ -1015,6 +1016,7 @@ Family_Survival has 66.99% missing values.
 </div></div></div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1062,19 +1064,18 @@ Family_Survival has 66.99% missing values.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1.Load data</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">1.Load data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-vs-data-wrangling">2.Feature Engineering vs Data Wrangling</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-wrangling">Data Wrangling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-vs-data-wrangling">2.Feature Engineering vs Data Wrangling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-wrangling">Data Wrangling</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model">3.Model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#output">5.Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">3.Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">4.Output</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
