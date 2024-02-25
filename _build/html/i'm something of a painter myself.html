@@ -1,0 +1,1446 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>CycleGAN &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'i'm something of a painter myself';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="NLP with Diaster Disaster tweet - detailed" href="NLP%20with%20Disaster%20tweet_detailed.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="titanic-basic.html">Titanic_basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="titanic-detailed.html">Giải thích chi tiết cho nhiệm vụ Titanic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NLP%20with%20Disaster%20tweet_basic.html">NLP with Disaster tweet- basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NLP%20with%20Disaster%20tweet_detailed.html">NLP with Diaster Disaster tweet - detailed</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">CycleGAN</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fi'm something of a painter myself.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/i'm something of a painter myself.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>CycleGAN</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">0.Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">1. Load data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differentiable-augmentation">2.Differentiable Augmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xu-ly-du-lieu">Xử lý dữ liệu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fid-frechet-inception-distance">2. FID (Frechet Inception Distance)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generator">3. Generator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discriminator">4. Discriminator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">5. Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">6.Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">7.Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cyclegan">
+<h1>CycleGAN<a class="headerlink" href="#cyclegan" title="Link to this heading">#</a></h1>
+<p>Hello mọi người! Hôm nay mình sẽ viết về một mô hình gây ra nhiều tranh cãi về vấn đề liệu nó có thật sự tốt hay không. Đó là mô hình GAN (Generative Adversarial Network) hay Mạng sinh đối nghịch tạo sinh. Trước tiên cần tìm hiểu mô hình GAN là gì? Đó là mô hình sinh ra dữ liệu mới giống như dữ liệu có sẵn, gồm 2 mạng là Generator (Bộ tạo sinh) và Discriminator (Bộ phân biệt) được sử dụng rộng rãi trong tạo ảnh, tạo video và tạo giọng nói. Hai mạng này sẽ cạnh tranh nhau nhằm nâng cao hiệu suất mô hình, mạng Generator sẽ cố gắng tạo ảnh giống ảnh thật nhất còn mô hình Discriminator cố gắng phân biệt ảnh thật và ảnh giả chính xác nhất. Và hiện nay nhiều người sử dụng nó cho mục đích xấu như giả mạo giọng nói, gương mặt của người nổi tiếng cho các mục đích xấu.</p>
+<section id="introduction">
+<h2>0.Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Hôm nay, chúng ta sẽ giải quyết nhiệm vụ GAN: <a class="reference external" href="https://www.kaggle.com/competitions/gan-getting-started">https://www.kaggle.com/competitions/gan-getting-started</a> để tạo sinh các bức ảnh bình thường thành các bức tranh mang phong cách của Monet- một họa sĩ tài ba người Pháp.</p>
+<p>Bộ dữ liệu gồm 4 tập:</p>
+<ul class="simple">
+<li><p>monet_jpg: 300 bức ảnh Monet lưu ở dạng JPEG</p></li>
+<li><p>monet_tfrec: 300 bức ảnh Monet ở dạng TFRecord (1 dạng nén tập dữ liệu lớn của TensorFlow)</p></li>
+<li><p>photo_jpg : 7028 bức ảnh thường ở dạng JPEG</p></li>
+<li><p>photo_tfrec: 7028 bức ảnh thường ở dạng TFRecord
+Tất cả các ảnh đã được chuyển về kích thước 256*256</p></li>
+</ul>
+<p>Ở nhiệm vụ này sử dụng đánh giá MiFID (Memorization-informed FID) bằng cách sử dụng FID (Frechet Inception Distance)- đo mức độ khác biệt phân phối Gauss của hình ảnh được sinh ra với sự phân bố của các hình ảnh thực tế dựa vào mô hình Inception từ ảnh Monet (trích lọc thông tin từ ảnh Monet)</p>
+<p>Trong nhiệm vụ này mình sử dụng mô hình CycleGAN và DiffAug (Differentiable Augmentation):</p>
+<p><img alt="CycleGAN" src="_images/CycleGan.png" /></p>
+<p>Mô hình CycleGAN giúp biến đổi từ tập hình ảnh này thành tập hình ảnh khác mà không cần biết đầu ra chính xác cho mỗi bức ảnh như những mô hình supervised learning khác. CycleGAN là một biến thể của mô hình GAN sử dụng 2 bộ tạo sinh Generators và 2 bộ phân biệt Discriminators. Như hình vẽ ở trên, bộ tạo sinh đầu tiên sẽ sinh từ hình ảnh ngựa thường thành ngựa vằn (ảnh mang phong cách Monet trong nhiệm vụ của chúng ta)  G1: A-&gt;B, sau đó bộ phân biệt thứ nhất giúp phân biệt ảnh ngựa vằn vừa tạo ra với ảnh ngựa vằn thật. Sau đó, từ ảnh vừa tạo ta lại chuyển về ảnh ngựa thường G2: B-&gt;A và bộ phân biệt thứ hai giúp phân biệt ảnh vừa tạo với ngựa thường. Vậy tại sao mô hình này lại hiệu quả hơn? Đó là bởi vì nếu sử dụng mô hình Gan thông thường thì ảnh tạo sẽ sẽ cố gắng giống ảnh B nhất mà làm mất đi các thuộc tính quan trọng của ảnh A, còn mô hình CycleGAN sẽ giúp biến đổi thành hình ảnh B mà không làm mất đi những đặc tính quan trọng của A do có bộ tạo từ B sang A.</p>
+<p>Bởi vì trong bài này có bộ dữ liệu nhỏ ảnh Monet chỉ có 300 bức nên mình sẽ dùng chung bộ Discriminator cho ảnh Monet có 2 đầu ra khác nhau để chúng có thể học được thông số của nhau. Oke, chúng ta haỹ bắt đầu làm thôi nào!</p>
+</section>
+<section id="load-data">
+<h2>1. Load data<a class="headerlink" href="#load-data" title="Link to this heading">#</a></h2>
+<p>Như thường lệ, ta nhập các thư viện cần thiết</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Thư viện tensorflow-addons cung cấp các công cụ xử lý hình ảnh cho mô hình Gan</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">tensorflow</span><span class="o">-</span><span class="n">addons</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting tensorflow-addons
+  Downloading tensorflow_addons-0.23.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.8 kB)
+Requirement already satisfied: packaging in /opt/conda/lib/python3.10/site-packages (from tensorflow-addons) (21.3)
+Collecting typeguard&lt;3.0.0,&gt;=2.7 (from tensorflow-addons)
+  Downloading typeguard-2.13.3-py3-none-any.whl.metadata (3.6 kB)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /opt/conda/lib/python3.10/site-packages (from packaging-&gt;tensorflow-addons) (3.1.1)
+Downloading tensorflow_addons-0.23.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (611 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">611.8/611.8 kB</span> <span class=" -Color -Color-Red">16.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>00:01
+?25hDownloading typeguard-2.13.3-py3-none-any.whl (17 kB)
+Installing collected packages: typeguard, tensorflow-addons
+  Attempting uninstall: typeguard
+    Found existing installation: typeguard 4.1.5
+    Uninstalling typeguard-4.1.5:
+      Successfully uninstalled typeguard-4.1.5
+<span class=" -Color -Color-Red">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.</span>
+<span class=" -Color -Color-Red">ydata-profiling 4.6.4 requires typeguard&lt;5,&gt;=4.1.2, but you have typeguard 2.13.3 which is incompatible.</span>
+Successfully installed tensorflow-addons-0.23.0 typeguard-2.13.3
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow_addons</span> <span class="k">as</span> <span class="nn">tfa</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.10/site-packages/tensorflow_addons/utils/tfa_eol_msg.py:23: UserWarning: 
+
+TensorFlow Addons (TFA) has ended development and introduction of new features.
+TFA has entered a minimal maintenance and release mode until a planned end of life in May 2024.
+Please modify downstream libraries to take dependencies from other repositories in our TensorFlow community (e.g. Keras, Keras-CV, and Keras-NLP). 
+
+For more information see: https://github.com/tensorflow/addons/issues/2807 
+
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kiểm tra version của tensorflow và sử dụng AUTOTUNE giúp đơn giản hóa quá trình tối ưu, yêu cầu hệ thống tự động điều chỉnh số lượng dữ liệu được tiền xử lý</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AUTOTUNE</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">AUTOTUNE</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.15.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lấy tên các file được lưu trữ dưới dạng TFRecord từ tệp dữ liệu do kaggle cung cấp</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MONET_FILENAMES</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/kaggle/input/gan-getting-started/monet_tfrec/*.tfrec&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">MONET_FILENAMES</span><span class="p">))</span>
+
+<span class="n">PHOTO_FILENAMES</span>  <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/kaggle/input/gan-getting-started/photo_tfrec/*.tfrec&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">PHOTO_FILENAMES</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+20
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nhận thấy tập ảnh thường nhiều hơn so với tập tranh Monet</p>
+<p>Bây giờ, chúng ta sẽ viết hàm đọc ảnh từ các file ở trên và hàm xử lý hình ảnh để chuyển thành các mảng số giúp cho máy tính dễ dàng tính toán, dùng cho mô hình học sâu</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IMAGE_SIZE</span> <span class="o">=</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">]</span>      <span class="c1">#Mỗi bức ảnh đều có size 256 x 256</span>
+
+<span class="k">def</span> <span class="nf">decode_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>                             <span class="c1">#hàm xử lý ảnh</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">decode_jpeg</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">channels</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>    <span class="c1">#giải mã hình ảnh JPEG thành một tensor</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">/</span><span class="mf">127.5</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>       <span class="c1">#Chuẩn hóa hình ảnh về giá trị pixel trong khoảng [-1,1]</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">[</span><span class="o">*</span><span class="n">IMAGE_SIZE</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>          <span class="c1">#Chuyển về kích thước chung</span>
+    <span class="k">return</span> <span class="n">image</span>
+
+<span class="k">def</span> <span class="nf">read_tfrecord</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>                       <span class="c1">#hàm đọc ảnh từ file TFRecord</span>
+    <span class="n">tfrecord_format</span> <span class="o">=</span> <span class="p">{</span>                           <span class="c1">#mô tả cấu trúc trong TFReord</span>
+        <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">([],</span> <span class="n">tf</span><span class="o">.</span><span class="n">string</span><span class="p">),</span>       
+    <span class="p">}</span>
+    <span class="n">example</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">parse_single_example</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">tfrecord_format</span><span class="p">)</span>     <span class="c1">#dùng để phân tích cú pháp của bản ghi và trả về dữ liệu hình ảnh</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">decode_image</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Bây giờ ta tạo hàm đọc qua từng file chứa hình ảnh trong TFRecord</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TFRecordDataset</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">read_tfrecord</span><span class="p">,</span> <span class="n">num_parallel_calls</span><span class="o">=</span><span class="n">AUTOTUNE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dataset</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Sau khi có các hàm trên, ta áp dụng để lấy ảnh thường và ảnh Monet theo các batch</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monet_ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">MONET_FILENAMES</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">photo_ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">PHOTO_FILENAMES</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Chúng ta kiểm tra xem ảnh thường có bao nhiêu batch</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">image_count</span> <span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">photo_ds</span><span class="p">:</span>
+    <span class="n">image_count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">image_count</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>220
+</pre></div>
+</div>
+</div>
+</div>
+<p>7028/32 = 220</p>
+<p>Ta thử lấy ví dụ 1 batch để xem dữ liệu</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_monet</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">monet_ds</span><span class="p">))</span>
+<span class="n">example_photo</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">photo_ds</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Do plt.imshow yêu cấu hình ảnh chuẩn hóa về khoảng [0, 1] nên ta sẽ tính image*0.5 + 0.5 để chuyển từ [-1, 1] -&gt; [0, 1]</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Photo&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">example_photo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)</span>      
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Monet&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">example_monet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7d4edca440a0&gt;
+</pre></div>
+</div>
+<img alt="_images/161802bb6d66ba39277c6d098206fa1cc6e0cbcb2bb59866d5c0e5fd0e0d6b5c.png" src="_images/161802bb6d66ba39277c6d098206fa1cc6e0cbcb2bb59866d5c0e5fd0e0d6b5c.png" />
+</div>
+</div>
+</section>
+<section id="differentiable-augmentation">
+<h2>2.Differentiable Augmentation<a class="headerlink" href="#differentiable-augmentation" title="Link to this heading">#</a></h2>
+<p>Một bước quan trọng để năng cao hiệu xuất của mô hình đó là augmentation. Ở nhiệm vụ này không chỉ sử dụng các phương pháp aug cơ bản mà còn sử dụng DiffAugg, bạn có thể tham khảo trong bài báo <a class="reference external" href="https://arxiv.org/abs/2006.10738">https://arxiv.org/abs/2006.10738</a></p>
+<p>Đầu tiên ta dùng aug lật ảnh trái phải cơ bản</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">data_augment_flip</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">random_flip_left_right</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">DiffAugment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">policy</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">channels_first</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>    <span class="c1">#hàm duyệt qua các yêu cầu policy để thực hiện tăng cường dữ liệu</span>
+    <span class="k">if</span> <span class="n">policy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">channels_first</span><span class="p">:</span>          <span class="c1"># kiểm tra xem ảnh có ở dạng (batch size, channels, height, width)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">policy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">AUGMENT_FNS</span><span class="p">[</span><span class="n">p</span><span class="p">]:</span>       <span class="c1">#duyệt qua từng loại Aug và áp dụng nó</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">channels_first</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">x</span>
+    
+<span class="k">def</span> <span class="nf">rand_brightness</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                  <span class="c1">#hàm chỉnh độ sáng </span>
+    <span class="n">magnitude</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mf">0.5</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">magnitude</span>
+    <span class="k">return</span> <span class="n">x</span>
+    
+<span class="k">def</span> <span class="nf">rand_saturation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                    <span class="c1">#hàm thay đổi độ bão hòa</span>
+    <span class="n">magnitude</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span><span class="mi">2</span>
+    <span class="n">x_mean</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">keepdims</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span>    <span class="c1">#tinhs trung bình 3 kênh màu của mỗi pixel</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">)</span><span class="o">*</span> <span class="n">magnitude</span> <span class="o">+</span> <span class="n">x_mean</span>
+    <span class="k">return</span> <span class="n">x</span>
+    
+<span class="k">def</span> <span class="nf">rand_contrast</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                     <span class="c1">#hàm thay đổi độ tương phản</span>
+    <span class="n">magnitude</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span>
+    <span class="n">x_mean</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="mf">5.086e-6</span>      
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">)</span> <span class="o">*</span> <span class="n">magnitude</span> <span class="o">+</span> <span class="n">x_mean</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">rand_translation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.125</span><span class="p">):</span>       <span class="c1">#hàm dịch chuyển ngẫu nhiên ảnh</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">image_size</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image_size</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>    <span class="c1">#tính độ dịch chuyển tối đa</span>
+    <span class="n">translation_x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">translation_y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">grid_x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_value</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">translation_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">grid_y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">clip_by_value</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">translation_y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gather_nd</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">grid_x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">batch_dims</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                 <span class="c1">#áp dụng dịch chuyển ngang</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">gather_nd</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">grid_y</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">batch_dims</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>    <span class="c1">#áp dụng dịch chuyển dọc</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="k">def</span> <span class="nf">rand_cutout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>             <span class="c1">#hàm loại bỏ bớt 1 phần hình ảnh</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">image_size</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">cutout_size</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image_size</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>            <span class="c1">#tính kích thước phần cần cắt</span>
+    <span class="n">offset_x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">maxval</span><span class="o">=</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>     <span class="c1">#xác định vị trí bắt đầu để cắt trên Ox</span>
+    <span class="n">offset_y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">maxval</span><span class="o">=</span><span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">grid_batch</span><span class="p">,</span> <span class="n">grid_x</span><span class="p">,</span> <span class="n">grid_y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">cutout_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">cutout_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">&#39;ij&#39;</span><span class="p">)</span>   
+    <span class="n">cutout_grid</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">grid_batch</span><span class="p">,</span> <span class="n">grid_x</span> <span class="o">+</span> <span class="n">offset_x</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">grid_y</span> <span class="o">+</span> <span class="n">offset_y</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>           <span class="c1">#tạo lướicắt</span>
+    <span class="n">mask_shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>                   
+    <span class="n">cutout_grid</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">cutout_grid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">cutout_grid</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">cutout_grid</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mask_shape</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">tf</span><span class="o">.</span><span class="n">scatter_nd</span><span class="p">(</span><span class="n">cutout_grid</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">cutout_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cutout_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">mask_shape</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>           <span class="c1">#tạo mask để cắt, 1- không bị cắt, 0- bị cắt</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="c1">#từ điển cho các phương pháp tăng cường dữ liệu</span>
+<span class="n">AUGMENT_FNS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">rand_brightness</span><span class="p">,</span> <span class="n">rand_saturation</span><span class="p">,</span> <span class="n">rand_contrast</span><span class="p">],</span>
+    <span class="s1">&#39;translation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">rand_translation</span><span class="p">],</span>
+    <span class="s1">&#39;cutout&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">rand_cutout</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="k">def</span> <span class="nf">aug_fn</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>       <span class="c1">#hàm aug</span>
+    <span class="k">return</span> <span class="n">DiffAugment</span><span class="p">(</span><span class="n">image</span><span class="p">,</span><span class="s2">&quot;color,translation,cutout&quot;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<section id="xu-ly-du-lieu">
+<h3>Xử lý dữ liệu<a class="headerlink" href="#xu-ly-du-lieu" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_gan_dataset</span><span class="p">(</span><span class="n">monet_files</span><span class="p">,</span> <span class="n">photo_files</span><span class="p">,</span> <span class="n">augment</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">repeat</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>    <span class="c1">#hàm xử lý cả ảnh thường và ảnh Monet để cho vào mô hình</span>
+    <span class="n">monet_ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">monet_files</span><span class="p">)</span>
+    <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">photo_files</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">repeat</span><span class="p">:</span>
+        <span class="n">monet_ds</span> <span class="o">=</span> <span class="n">monet_ds</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>    <span class="c1">#giúp lặp lại dữ liệu nhiều lần </span>
+        <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">shuffle</span><span class="p">:</span>
+        <span class="n">monet_ds</span> <span class="o">=</span> <span class="n">monet_ds</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+        <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+        
+    <span class="n">monet_ds</span> <span class="o">=</span> <span class="n">monet_ds</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">drop_remainder</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>     <span class="c1">#drop_remainder = True sẽ loại bỏ phần batch cuối nếu ko đủ số lượng</span>
+    <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">drop_remainder</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">augment</span><span class="p">:</span>
+        <span class="n">monet_ds</span> <span class="o">=</span> <span class="n">monet_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">augment</span><span class="p">,</span> <span class="n">num_parallel_calls</span> <span class="o">=</span> <span class="n">AUTOTUNE</span><span class="p">)</span>
+        <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">augment</span><span class="p">,</span> <span class="n">num_parallel_calls</span> <span class="o">=</span> <span class="n">AUTOTUNE</span><span class="p">)</span>
+        
+    <span class="n">monet_ds</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="n">AUTOTUNE</span><span class="p">)</span>
+    <span class="n">photo_ds</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="n">AUTOTUNE</span><span class="p">)</span>
+    <span class="n">gan_ds</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">zip</span><span class="p">((</span><span class="n">monet_ds</span><span class="p">,</span> <span class="n">photo_ds</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">gan_ds</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_photo_dataset</span><span class="p">(</span><span class="n">photo_files</span><span class="p">,</span> <span class="n">augment</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">repeat</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>         <span class="c1">#hàm chỉ lấy mình ảnh thường</span>
+    <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">photo_files</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">repeat</span><span class="p">:</span>
+        <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">shuffle</span><span class="p">:</span>
+        <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+    <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">drop_remainder</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">augment</span><span class="p">:</span>
+        <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">augment</span><span class="p">,</span> <span class="n">num_parallel_calls</span> <span class="o">=</span> <span class="n">AUTOTUNE</span><span class="p">)</span>
+    <span class="n">photo_ds</span> <span class="o">=</span> <span class="n">photo_ds</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="n">AUTOTUNE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">photo_ds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ta cần lấy final_dataset để cho vào mô hình cần xử lý</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_dataset</span> <span class="o">=</span> <span class="n">get_gan_dataset</span><span class="p">(</span><span class="n">MONET_FILENAMES</span><span class="p">,</span> <span class="n">PHOTO_FILENAMES</span><span class="p">,</span> <span class="n">augment</span> <span class="o">=</span> <span class="n">data_augment_flip</span><span class="p">,</span> <span class="n">repeat</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="fid-frechet-inception-distance">
+<h2>2. FID (Frechet Inception Distance)<a class="headerlink" href="#fid-frechet-inception-distance" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inception_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">InceptionV3</span><span class="p">(</span><span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pooling</span> <span class="o">=</span> <span class="s2">&quot;avg&quot;</span><span class="p">,</span> <span class="n">include_top</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>   <span class="c1">#dùng mô hình pretrained Iception có sẵn</span>
+<span class="n">mix3</span> <span class="o">=</span> <span class="n">inception_model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;mixed9&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">output</span>       <span class="c1">#chỉ lấy mô hình đến lớp mixed9</span>
+<span class="n">f0</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">mix3</span><span class="p">)</span>
+    
+<span class="n">inception_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inception_model</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">f0</span><span class="p">)</span>
+<span class="n">inception_model</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">calculate_activation_statistics_mod</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">fid_model</span><span class="p">):</span>   <span class="c1">#hàm tính các thông số cho phân phối Gauss - tính trung bình và ma trận covariance</span>
+    <span class="n">act</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">fid_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">images</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">mean_x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mx</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">mean_x</span><span class="p">),</span> <span class="n">mean_x</span><span class="p">)</span>
+    <span class="n">vx</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">act</span><span class="p">),</span> <span class="n">act</span><span class="p">)</span><span class="o">/</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">act</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">vx</span> <span class="o">-</span> <span class="n">mx</span>
+    <span class="k">return</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span>
+
+<span class="n">myFID_mu2</span><span class="p">,</span> <span class="n">myFID_sigma2</span> <span class="o">=</span> <span class="n">calculate_activation_statistics_mod</span><span class="p">(</span><span class="n">monet_ds</span><span class="p">,</span><span class="n">inception_model</span><span class="p">)</span>        
+<span class="n">fids</span><span class="o">=</span><span class="p">[]</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/inception_v3/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5
+87910968/87910968 [==============================] - 3s 0us/step
+10/10 [==============================] - 6s 223ms/step
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_frechet_distance</span><span class="p">(</span><span class="n">mu1</span><span class="p">,</span><span class="n">sigma1</span><span class="p">,</span><span class="n">mu2</span><span class="p">,</span><span class="n">sigma2</span><span class="p">):</span>      <span class="c1">#tính khoảng cách Frechet giữa các hình ảnh</span>
+    <span class="n">fid_epsilon</span> <span class="o">=</span> <span class="mf">1e-14</span>       
+    <span class="n">covmean</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">sigma1</span><span class="p">,</span><span class="n">sigma2</span><span class="p">),</span><span class="n">tf</span><span class="o">.</span><span class="n">complex64</span><span class="p">))</span>
+    <span class="n">covmean</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">covmean</span><span class="p">),</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>  
+    <span class="n">tr_covmean</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">covmean</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mu1</span> <span class="o">-</span> <span class="n">mu2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mu1</span> <span class="o">-</span> <span class="n">mu2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">sigma1</span><span class="p">)</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">sigma2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">tr_covmean</span>
+    
+<span class="k">def</span> <span class="nf">FID</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">gen_model</span><span class="p">,</span><span class="n">inception_model</span><span class="o">=</span><span class="n">inception_model</span><span class="p">,</span><span class="n">myFID_mu2</span><span class="o">=</span><span class="n">myFID_mu2</span><span class="p">,</span> <span class="n">myFID_sigma2</span><span class="o">=</span><span class="n">myFID_sigma2</span><span class="p">):</span>     <span class="c1">#Đánh giá chất lượng hình ảnh bằng FID</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;input_image&#39;</span><span class="p">)</span>
+    <span class="n">x</span>  <span class="o">=</span> <span class="n">gen_model</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">inception_model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">fid_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>                
+    <span class="n">mu1</span><span class="p">,</span> <span class="n">sigma1</span><span class="o">=</span> <span class="n">calculate_activation_statistics_mod</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">fid_model</span><span class="p">)</span>
+    <span class="n">fid_value</span> <span class="o">=</span> <span class="n">calculate_frechet_distance</span><span class="p">(</span><span class="n">mu1</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span><span class="n">myFID_mu2</span><span class="p">,</span> <span class="n">myFID_sigma2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fid_value</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generator">
+<h2>3. Generator<a class="headerlink" href="#generator" title="Link to this heading">#</a></h2>
+<p>Đối với bộ Generators chúng ta sẽ sử dụng mô hình Unet:</p>
+<p><img alt="Unet" src="_images/Unet.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">output_channels</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">downsample</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">apply_instancenorm</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>       <span class="c1">#Lớp downsample giảm chiều dài, rộng và tăng chiều sâu  </span>
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">gamma_init</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">RandomNormal</span><span class="p">(</span><span class="n">mean</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">stddev</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">)</span>          <span class="c1">#khởi tạo chuẩn Gauss</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">strides</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span> <span class="o">=</span> <span class="n">initializer</span><span class="p">,</span> <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>     
+    <span class="k">if</span> <span class="n">apply_instancenorm</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">InstanceNormalization</span><span class="p">(</span><span class="n">gamma_initializer</span><span class="o">=</span><span class="n">gamma_init</span><span class="p">))</span>        <span class="c1">#lóp chuẩn hóa dữ liệu cho mô hình Gan</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">upsample</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">apply_dropout</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>              <span class="c1">#lớp upsample tăng chiều dài, rộng và giảm chiều sâu</span>
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">gamma_init</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">RandomNormal</span><span class="p">(</span><span class="n">mean</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">stddev</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">)</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">strides</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span> <span class="o">=</span> <span class="n">initializer</span><span class="p">,</span> <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">False</span><span class="p">))</span>      <span class="c1">#lớp chập ngược lại với Conv</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">InstanceNormalization</span><span class="p">(</span><span class="n">gamma_initializer</span><span class="o">=</span><span class="n">gamma_init</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="n">apply_dropout</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Bây giờ ta sẽ xây dựng mô hình cho Bộ tạo sinh</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Generator</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    
+    <span class="n">down_stack</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">apply_instancenorm</span><span class="o">=</span> <span class="kc">False</span><span class="p">),</span>      <span class="c1">#(batch_size, 128, 128, 64)</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                              <span class="c1">#(batch_size, 64, 64, 128)</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                              <span class="c1">#(batch_size, 32, 32, 256)</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                              <span class="c1">#(batch_size, 16, 16, 512)</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                              <span class="c1">#(batch_size, 8, 8, 512)</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                              <span class="c1">#(batch_size, 4, 4, 512)</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                              <span class="c1">#(batch_size, 2, 2, 512)</span>
+        <span class="n">downsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                              <span class="c1">#(batch_size, 1, 1, 512)</span>
+    <span class="p">]</span>
+    
+    <span class="n">up_stack</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">upsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">apply_dropout</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>          <span class="c1">#(batch_size, 2, 2, 512)</span>
+        <span class="n">upsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">apply_dropout</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>          <span class="c1">#(batch_size, 4, 4, 512)</span>
+        <span class="n">upsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">apply_dropout</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>          <span class="c1">#(batch_size, 8, 8, 512)</span>
+        <span class="n">upsample</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                                <span class="c1">#(batch_size, 16, 16, 512)</span>
+        <span class="n">upsample</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                                <span class="c1">#(batch_size, 32, 32, 256)</span>
+        <span class="n">upsample</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                                <span class="c1">#(batch_size, 64, 64, 128)</span>
+        <span class="n">upsample</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>                                 <span class="c1">#(batch_size, 128, 128, 64)</span>
+        
+    <span class="p">]</span>
+    
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="n">output_channels</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">strides</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">kernel_initializer</span> <span class="o">=</span> <span class="n">initializer</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;tanh&#39;</span><span class="p">)</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">inputs</span>
+    <span class="n">skips</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">down</span> <span class="ow">in</span> <span class="n">down_stack</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">down</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">skips</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        
+    <span class="n">skips</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">skips</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        
+    <span class="k">for</span> <span class="n">up</span><span class="p">,</span> <span class="n">skip</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">up_stack</span><span class="p">,</span> <span class="n">skips</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">()([</span><span class="n">x</span><span class="p">,</span> <span class="n">skip</span><span class="p">])</span>           <span class="c1">#kết hợp các lớp từ bên trái với bên phải của mô hình unet để tránh làm mất dữ liệu skip-connection</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">last</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discriminator">
+<h2>4. Discriminator<a class="headerlink" href="#discriminator" title="Link to this heading">#</a></h2>
+<p>Ta dùng chung 1 mô hình Discriminator cho 2 bộ phân loại, chỉ khác đầu ra(lớp cuối) để phân biệt 2 chức năng khác nhau</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Discrimator</span><span class="p">():</span>
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">gamma_init</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">RandomNormal</span><span class="p">(</span><span class="n">mean</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stddev</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">)</span>
+    
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;input_image&#39;</span><span class="p">)</span>
+    <span class="n">down1</span> <span class="o">=</span> <span class="n">downsample</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">apply_instancenorm</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)(</span><span class="nb">input</span><span class="p">)</span>
+    <span class="n">down2</span> <span class="o">=</span> <span class="n">downsample</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span><span class="mi">4</span><span class="p">)(</span><span class="n">down1</span><span class="p">)</span>
+    <span class="n">down3</span> <span class="o">=</span> <span class="n">downsample</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">4</span><span class="p">)(</span><span class="n">down2</span><span class="p">)</span>
+    
+    <span class="n">zero_pad1</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">ZeroPadding2D</span><span class="p">()(</span><span class="n">down3</span><span class="p">)</span>
+    <span class="n">conv</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">strides</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">kernel_initializer</span> <span class="o">=</span> <span class="n">initializer</span><span class="p">,</span> <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)(</span><span class="n">zero_pad1</span><span class="p">)</span>
+    <span class="n">norm1</span> <span class="o">=</span> <span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">InstanceNormalization</span><span class="p">(</span><span class="n">gamma_initializer</span><span class="o">=</span><span class="n">gamma_init</span><span class="p">)(</span><span class="n">conv</span><span class="p">)</span>
+    <span class="n">leaky_relu</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()(</span><span class="n">norm1</span><span class="p">)</span>
+    <span class="n">zero_pad2</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">ZeroPadding2D</span><span class="p">()(</span><span class="n">leaky_relu</span><span class="p">)</span>
+    <span class="c1">#last = layers.Conv2D(1,4, strides = 1, kernel_initializer = initializer)(zero_pad2)</span>
+    
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="nb">input</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">zero_pad2</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<p>Đầu ra cho mỗi mô hình Discriminator của bộ phân loại ảnh Monet</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">DHead</span><span class="p">():</span>
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">33</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">512</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;input_image&#39;</span><span class="p">)</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">strides</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">kernel_initializer</span> <span class="o">=</span> <span class="n">initializer</span><span class="p">)(</span><span class="nb">input</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="nb">input</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">last</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Bộ phân loại cho ảnh</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">DiscrimatorP</span><span class="p">():</span>
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">gamma_init</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">RandomNormal</span><span class="p">(</span><span class="n">mean</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stddev</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">)</span>
+    
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;input_image&#39;</span><span class="p">)</span>
+    <span class="n">down1</span> <span class="o">=</span> <span class="n">downsample</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">apply_instancenorm</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)(</span><span class="nb">input</span><span class="p">)</span>
+    <span class="n">down2</span> <span class="o">=</span> <span class="n">downsample</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span><span class="mi">4</span><span class="p">)(</span><span class="n">down1</span><span class="p">)</span>
+    <span class="n">down3</span> <span class="o">=</span> <span class="n">downsample</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">4</span><span class="p">)(</span><span class="n">down2</span><span class="p">)</span>
+    
+    <span class="n">zero_pad1</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">ZeroPadding2D</span><span class="p">()(</span><span class="n">down3</span><span class="p">)</span>
+    <span class="n">conv</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">strides</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">kernel_initializer</span> <span class="o">=</span> <span class="n">initializer</span><span class="p">,</span> <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)(</span><span class="n">zero_pad1</span><span class="p">)</span>
+    <span class="n">norm1</span> <span class="o">=</span> <span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">InstanceNormalization</span><span class="p">(</span><span class="n">gamma_initializer</span><span class="o">=</span><span class="n">gamma_init</span><span class="p">)(</span><span class="n">conv</span><span class="p">)</span>
+    <span class="n">leaky_relu</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">()(</span><span class="n">norm1</span><span class="p">)</span>
+    <span class="n">zero_pad2</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">ZeroPadding2D</span><span class="p">()(</span><span class="n">leaky_relu</span><span class="p">)</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">strides</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">kernel_initializer</span> <span class="o">=</span> <span class="n">initializer</span><span class="p">)(</span><span class="n">zero_pad2</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="nb">input</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">last</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model">
+<h2>5. Model<a class="headerlink" href="#model" title="Link to this heading">#</a></h2>
+<p>Để bắt đầu tạo model thì ta sẽ khởi tạo các mô hình Generator và Discriminator ở trên</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monet_generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">()</span>
+<span class="n">photo_generator</span> <span class="o">=</span> <span class="n">Generator</span><span class="p">()</span>
+    
+<span class="n">monet_discriminator</span> <span class="o">=</span> <span class="n">Discrimator</span><span class="p">()</span>
+<span class="n">photo_discriminator</span> <span class="o">=</span> <span class="n">DiscrimatorP</span><span class="p">()</span>
+    
+<span class="n">dHead1</span> <span class="o">=</span> <span class="n">DHead</span><span class="p">()</span>
+<span class="n">dHead2</span> <span class="o">=</span> <span class="n">DHead</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hãy thử áp dụng với ảnh và xem chuyện gì sẽ xảy ra nhé :))</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_monet</span> <span class="o">=</span> <span class="n">monet_generator</span><span class="p">(</span><span class="n">example_photo</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Photo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">example_photo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Monet-GAN Photo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">to_monet</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span> <span class="o">+</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1a606860345dac4f0af53e031d30a20264ace67787ae62ae218acd9d7ff0bede.png" src="_images/1a606860345dac4f0af53e031d30a20264ace67787ae62ae218acd9d7ff0bede.png" />
+</div>
+</div>
+<p>Ôi không, chẳng có gì ở bức ảnh Monet-Gan cả! Đừng lo lắng, là do bạn chưa đào tạo mô hình thôi, mô hình vẫn chưa học được bất kì thông số nào cả ))</p>
+<p><strong>CycleGAN</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CycleGan</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">monet_generator</span><span class="p">,</span><span class="n">photo_generator</span><span class="p">,</span><span class="n">monet_discriminator</span><span class="p">,</span><span class="n">photo_discriminator</span><span class="p">,</span><span class="n">dhead1</span><span class="p">,</span> <span class="n">dhead2</span><span class="p">,</span> <span class="n">lambda_cycle</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">lambda_id</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CycleGan</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_gen</span> <span class="o">=</span> <span class="n">monet_generator</span>            <span class="c1">#Bộ tạo ảnh monet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_gen</span> <span class="o">=</span> <span class="n">photo_generator</span>            <span class="c1">#Bộ tạo ảnh thường</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_disc</span> <span class="o">=</span> <span class="n">monet_discriminator</span>       <span class="c1">#Bộ phân loại ảnh monet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_disc</span> <span class="o">=</span> <span class="n">photo_discriminator</span>       <span class="c1">#Bộ phân loại ảnh thường</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dhead1</span> <span class="o">=</span> <span class="n">dhead1</span>                    <span class="c1">#head1 - higher score to fake image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dhead2</span> <span class="o">=</span> <span class="n">dhead2</span>                    <span class="c1">#head2 - higher score to real image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_cycle</span> <span class="o">=</span> <span class="n">lambda_cycle</span>        <span class="c1">#hệ số lambda cho cycle loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_id</span> <span class="o">=</span> <span class="n">lambda_id</span>              <span class="c1">#hệ số lambda cho identity loss</span>
+        
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m_gen_optimizer</span><span class="p">,</span> <span class="n">p_gen_optimizer</span><span class="p">,</span> <span class="n">m_disc_optimizer</span><span class="p">,</span> <span class="n">p_disc_optimizer</span><span class="p">,</span> <span class="n">gen_loss_fn1</span><span class="p">,</span> <span class="n">gen_loss_fn2</span><span class="p">,</span> <span class="n">disc_loss_fn1</span><span class="p">,</span> <span class="n">disc_loss_fn2</span><span class="p">,</span> <span class="n">cycle_loss_fn</span><span class="p">,</span> <span class="n">identity_loss_fn</span><span class="p">,</span> <span class="n">aug_fn</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CycleGan</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_gen_optimizer</span> <span class="o">=</span> <span class="n">m_gen_optimizer</span>         <span class="c1">#khởi tạo các hàm optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_gen_optimizer</span> <span class="o">=</span> <span class="n">p_gen_optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_disc_optimizer</span> <span class="o">=</span> <span class="n">m_disc_optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_disc_optimizer</span> <span class="o">=</span> <span class="n">p_disc_optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gen_loss_fn1</span> <span class="o">=</span> <span class="n">gen_loss_fn1</span>                <span class="c1">#Khởi tạo các hàm loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gen_loss_fn2</span> <span class="o">=</span> <span class="n">gen_loss_fn2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_loss_fn1</span> <span class="o">=</span> <span class="n">disc_loss_fn1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_loss_fn2</span> <span class="o">=</span> <span class="n">disc_loss_fn2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cycle_loss_fn</span> <span class="o">=</span> <span class="n">cycle_loss_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">identity_loss_fn</span> <span class="o">=</span> <span class="n">identity_loss_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aug_fn</span> <span class="o">=</span> <span class="n">aug_fn</span>                             <span class="c1">#hàm tăng cường ảnh</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_num</span> <span class="o">=</span> <span class="mi">0</span>
+        
+    <span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_data</span><span class="p">):</span>
+        <span class="n">real_monet</span><span class="p">,</span> <span class="n">real_photo</span> <span class="o">=</span> <span class="n">batch_data</span>                 <span class="c1">#lấy dữ liệu từ các batch</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">real_monet</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">(</span><span class="n">persistent</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>      <span class="c1">#dùng GradientTape để theo dõi các hoạt động giúp cho việc tính toán gradient sau này</span>
+            <span class="n">fake_monet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_gen</span><span class="p">(</span><span class="n">real_photo</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>        <span class="c1">#sinh ảnh Monet từ ảnh thường</span>
+            <span class="n">cycled_photo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_gen</span><span class="p">(</span><span class="n">fake_monet</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>      <span class="c1">#sinh ảnh thường từ ảnh monet giả ở trên</span>
+            
+            <span class="n">fake_photo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_gen</span><span class="p">(</span><span class="n">real_monet</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>        <span class="c1">#sinh ảnh thường từ ảnh monet thật</span>
+            <span class="n">cycled_monet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_gen</span><span class="p">(</span><span class="n">fake_photo</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>      <span class="c1">#sinh ảnh monet từ ảnh giả trên</span>
+            
+            <span class="n">same_monet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_gen</span><span class="p">(</span><span class="n">real_monet</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>          <span class="c1">#sinh ảnh monet từ ảnh monet</span>
+            <span class="n">same_photo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_gen</span><span class="p">(</span><span class="n">real_photo</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span><span class="kc">True</span><span class="p">)</span>         <span class="c1">#sinh ảnh thường từ ảnh thường</span>
+            
+            <span class="n">both_monet</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">real_monet</span><span class="p">,</span> <span class="n">fake_monet</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>  
+            <span class="n">aug_monet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aug_fn</span><span class="p">(</span><span class="n">both_monet</span><span class="p">)</span>                         <span class="c1">#sinh thêm dữ liệu cho ảnh monet thật và giả</span>
+            <span class="n">aug_real_monet</span> <span class="o">=</span> <span class="n">aug_monet</span><span class="p">[:</span><span class="n">batch_size</span><span class="p">]</span>
+            <span class="n">aug_fake_monet</span> <span class="o">=</span> <span class="n">aug_monet</span><span class="p">[</span><span class="n">batch_size</span><span class="p">:]</span>
+            
+            <span class="n">disc_fake_monet1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_disc</span><span class="p">(</span><span class="n">aug_fake_monet</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>           <span class="c1">#head1 cho ảnh monet giả</span>
+            <span class="n">disc_real_monet1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead1</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_disc</span><span class="p">(</span><span class="n">aug_real_monet</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>           <span class="c1">#head1 cho ảnh monet thật</span>
+            
+            <span class="n">disc_fake_monet2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_disc</span><span class="p">(</span><span class="n">aug_fake_monet</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>           <span class="c1">#head2 cho ảnh monet giả</span>
+            <span class="n">disc_real_monet2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_disc</span><span class="p">(</span><span class="n">aug_real_monet</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>           <span class="c1">#head2 cho ảnh monet thật</span>
+            
+            
+            <span class="n">disc_real_photo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_disc</span><span class="p">(</span><span class="n">real_photo</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>               <span class="c1">#phân loại ảnh thường cho ảnh thật</span>
+            <span class="n">disc_fake_photo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_disc</span><span class="p">(</span><span class="n">fake_photo</span><span class="p">,</span> <span class="n">training</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>               <span class="c1">#phân loại ảnh thường cho anh giả</span>
+            
+            <span class="n">monet_gen_loss1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_loss_fn1</span><span class="p">(</span><span class="n">disc_fake_monet1</span><span class="p">)</span>                      <span class="c1">#hàm loss cho 2 đầu</span>
+            <span class="n">monet_head_loss1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_loss_fn1</span><span class="p">(</span><span class="n">disc_real_monet1</span><span class="p">,</span> <span class="n">disc_fake_monet1</span><span class="p">)</span>
+            <span class="n">monet_gen_loss2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_loss_fn2</span><span class="p">(</span><span class="n">disc_fake_monet2</span><span class="p">)</span>
+            <span class="n">monet_head_loss2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_loss_fn2</span><span class="p">(</span><span class="n">disc_real_monet2</span><span class="p">,</span> <span class="n">disc_fake_monet2</span><span class="p">)</span>
+            
+            <span class="n">monet_gen_loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">monet_gen_loss1</span> <span class="o">+</span> <span class="n">monet_gen_loss2</span><span class="p">)</span><span class="o">*</span><span class="mf">0.4</span>                     <span class="c1">#tổng hàm loss cho bộ sinh ảnh monet</span>
+            <span class="n">monet_disc_loss</span> <span class="o">=</span> <span class="n">monet_head_loss1</span> <span class="o">+</span> <span class="n">monet_head_loss2</span>                        <span class="c1">#tổng hàm loss cho bộ phân loại ảnh monet</span>
+            
+            <span class="n">photo_gen_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_loss_fn1</span><span class="p">(</span><span class="n">disc_fake_photo</span><span class="p">)</span>                           <span class="c1">#hàm loss cho bộ sinh ảnh thường</span>
+            <span class="n">photo_disc_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_loss_fn1</span><span class="p">(</span><span class="n">disc_real_photo</span><span class="p">,</span> <span class="n">disc_fake_photo</span><span class="p">)</span>        <span class="c1">#hàm loss cho bộ phân loại ảnh thường</span>
+            
+            <span class="n">total_cycle_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycle_loss_fn</span><span class="p">(</span><span class="n">real_monet</span><span class="p">,</span> <span class="n">cycled_monet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_cycle</span><span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cycle_loss_fn</span><span class="p">(</span><span class="n">real_photo</span><span class="p">,</span> <span class="n">cycled_photo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_cycle</span><span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+            <span class="n">total_monet_gen_loss</span> <span class="o">=</span> <span class="n">monet_gen_loss</span> <span class="o">+</span> <span class="n">total_cycle_loss</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_loss_fn</span><span class="p">(</span><span class="n">real_monet</span><span class="p">,</span> <span class="n">same_monet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_id</span><span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+            <span class="n">total_photo_gen_loss</span> <span class="o">=</span> <span class="n">photo_gen_loss</span> <span class="o">+</span> <span class="n">total_cycle_loss</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_loss_fn</span><span class="p">(</span><span class="n">real_photo</span><span class="p">,</span> <span class="n">same_photo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_id</span><span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+    
+        <span class="n">monet_generator_gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">total_monet_gen_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_gen</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>          <span class="c1">#tính toán gradients</span>
+        <span class="n">photo_generator_gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">total_photo_gen_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_gen</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="n">monet_discriminator_gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">monet_disc_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_disc</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="n">photo_discriminator_gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">photo_disc_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_disc</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        
+        <span class="n">monet_head_gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">monet_head_loss1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead1</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_disc_optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">monet_head_gradients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead1</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>         <span class="c1">#áp dụng gradient tương ứng</span>
+        <span class="n">monet_head_gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">monet_head_loss2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead2</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_disc_optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">monet_head_gradients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dhead2</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+              
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_gen_optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">monet_generator_gradients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_gen</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_gen_optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">photo_generator_gradients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_gen</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_disc_optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">monet_discriminator_gradients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m_disc</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_disc_optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">photo_discriminator_gradients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_disc</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;monet_head_loss1&quot;</span> <span class="p">:</span> <span class="n">monet_head_loss1</span><span class="p">,</span>
+            <span class="s2">&quot;monet_head_loss2&quot;</span> <span class="p">:</span> <span class="n">monet_head_loss2</span><span class="p">,</span>
+            <span class="s2">&quot;disc_real_monet&quot;</span> <span class="p">:</span> <span class="n">disc_real_monet1</span><span class="p">,</span>
+            <span class="s2">&quot;disc_fake_monet&quot;</span> <span class="p">:</span> <span class="n">disc_fake_monet1</span><span class="p">,</span>
+            <span class="s2">&quot;disc_real_monet2&quot;</span> <span class="p">:</span> <span class="n">disc_real_monet2</span><span class="p">,</span>
+            <span class="s2">&quot;disc_fake_monet2&quot;</span> <span class="p">:</span> <span class="n">disc_fake_monet2</span><span class="p">,</span>
+            <span class="s2">&quot;monet_gen_loss&quot;</span> <span class="p">:</span> <span class="n">monet_gen_loss</span><span class="p">,</span>
+            <span class="s2">&quot;photo_disc_loss&quot;</span> <span class="p">:</span> <span class="n">photo_disc_loss</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Tạo hàm loss cho các bộ sinh và bộ phân loại</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">discriminator_loss1</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">generated</span><span class="p">):</span>
+    <span class="n">real_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">real</span><span class="p">),</span> <span class="n">real</span><span class="o">-</span><span class="n">tf</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">real</span><span class="p">))</span>
+    <span class="n">generated_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">generated</span><span class="p">),</span> <span class="o">-</span><span class="n">generated</span><span class="o">-</span><span class="n">tf</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">generated</span><span class="p">))</span>
+    <span class="n">total_disc_loss</span> <span class="o">=</span> <span class="n">real_loss</span> <span class="o">+</span> <span class="n">generated_loss</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="o">-</span><span class="n">total_disc_loss</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>     <span class="c1">#tối đa hóa mất mát của bộ phân biệt</span>
+
+<span class="k">def</span> <span class="nf">discriminator_loss2</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">generated</span><span class="p">):</span>
+    <span class="n">real_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">BinaryCrossentropy</span><span class="p">(</span><span class="n">from_logits</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">reduction</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">Reduction</span><span class="o">.</span><span class="n">NONE</span><span class="p">)(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">real</span><span class="p">),</span> <span class="n">real</span><span class="p">)</span>
+    <span class="n">generated_loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">BinaryCrossentropy</span><span class="p">(</span><span class="n">from_logits</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">reduction</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">Reduction</span><span class="o">.</span><span class="n">NONE</span><span class="p">)(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">generated</span><span class="p">),</span> <span class="n">generated</span><span class="p">)</span>
+    <span class="n">total_disc_loss</span> <span class="o">=</span> <span class="n">real_loss</span><span class="o">+</span> <span class="n">generated_loss</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">total_disc_loss</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generator_loss1</span><span class="p">(</span><span class="n">generated</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="o">-</span><span class="n">generated</span><span class="p">)</span>     <span class="c1">#tối đa hóa điểm số để bộ phân biệt coi ảnh giả mạo là thật</span>
+<span class="k">def</span> <span class="nf">generator_loss2</span><span class="p">(</span><span class="n">generated</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">BinaryCrossentropy</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">Reduction</span><span class="o">.</span><span class="n">NONE</span><span class="p">)(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">generated</span><span class="p">),</span> <span class="n">generated</span><span class="p">))</span> <span class="c1">#tối đa hóa để bộ phân biệt được hình ảnh giả mạo</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_cycle_loss</span><span class="p">(</span><span class="n">real_image</span><span class="p">,</span> <span class="n">cycled_image</span><span class="p">,</span> <span class="n">LAMBDA</span><span class="p">):</span>
+    <span class="n">loss1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">real_image</span> <span class="o">-</span> <span class="n">cycled_image</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">LAMBDA</span> <span class="o">*</span> <span class="n">loss1</span> <span class="o">*</span> <span class="mf">0.0000152587890625</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">identity_loss</span><span class="p">(</span><span class="n">real_image</span><span class="p">,</span> <span class="n">same_image</span><span class="p">,</span> <span class="n">LAMBDA</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">real_image</span> <span class="o">-</span> <span class="n">same_image</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">LAMBDA</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">loss</span> <span class="o">*</span>  <span class="mf">0.0000152587890625</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Khởi tạo các optimizer cho mô hình, ở đây chúng ta sử dụng Adam</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monet_generator_optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">legacy</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">photo_generator_optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">legacy</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">monet_discriminator_optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">legacy</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">photo_discriminator_optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">legacy</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">beta_1</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Và chúng ta hãy khởi tạo mô hình từ các phần ở trên</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_gan_model</span> <span class="o">=</span> <span class="n">CycleGan</span><span class="p">(</span>
+    <span class="n">monet_generator</span><span class="p">,</span> <span class="n">photo_generator</span><span class="p">,</span> <span class="n">monet_discriminator</span><span class="p">,</span> <span class="n">photo_discriminator</span><span class="p">,</span> <span class="n">dHead1</span><span class="p">,</span> <span class="n">dHead2</span>
+<span class="p">)</span>
+
+<span class="n">cycle_gan_model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="n">m_gen_optimizer</span> <span class="o">=</span> <span class="n">monet_generator_optimizer</span><span class="p">,</span>
+    <span class="n">p_gen_optimizer</span> <span class="o">=</span> <span class="n">photo_generator_optimizer</span><span class="p">,</span>
+    <span class="n">m_disc_optimizer</span> <span class="o">=</span> <span class="n">monet_discriminator_optimizer</span><span class="p">,</span>
+    <span class="n">p_disc_optimizer</span> <span class="o">=</span> <span class="n">photo_discriminator_optimizer</span><span class="p">,</span>
+    <span class="n">gen_loss_fn1</span> <span class="o">=</span> <span class="n">generator_loss1</span><span class="p">,</span>
+    <span class="n">gen_loss_fn2</span> <span class="o">=</span> <span class="n">generator_loss2</span><span class="p">,</span>
+    <span class="n">disc_loss_fn1</span> <span class="o">=</span> <span class="n">discriminator_loss1</span><span class="p">,</span>
+    <span class="n">disc_loss_fn2</span> <span class="o">=</span> <span class="n">discriminator_loss2</span><span class="p">,</span>
+    <span class="n">cycle_loss_fn</span> <span class="o">=</span> <span class="n">calc_cycle_loss</span><span class="p">,</span>
+    <span class="n">identity_loss_fn</span> <span class="o">=</span> <span class="n">identity_loss</span><span class="p">,</span>
+    <span class="n">aug_fn</span> <span class="o">=</span> <span class="n">aug_fn</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Chạy model với 8 epochs</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycle_gan_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">,</span> <span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="mi">1407</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">FID</span><span class="p">(</span><span class="n">photo_ds</span><span class="p">,</span> <span class="n">monet_generator</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/8
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-02-24 07:56:11.379460: E tensorflow/core/grappler/optimizers/meta_optimizer.cc:961] layout failed: INVALID_ARGUMENT: Size of values 0 does not match size of permutation 4 @ fanin shape inmodel_1/sequential_8/dropout/dropout/SelectV2-2-TransposeNHWCToNCHW-LayoutOptimizer
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1407/1407 [==============================] - 3339s 2s/step - monet_head_loss1: 0.7699 - monet_head_loss2: 0.6231 - disc_real_monet: 0.3356 - disc_fake_monet: -0.3026 - disc_real_monet2: -0.2695 - disc_fake_monet2: 0.2671 - monet_gen_loss: 0.4783 - photo_disc_loss: 0.6243
+Epoch 3/8
+1407/1407 [==============================] - 3338s 2s/step - monet_head_loss1: 0.7984 - monet_head_loss2: 0.6354 - disc_real_monet: 0.3172 - disc_fake_monet: -0.2538 - disc_real_monet2: -0.2366 - disc_fake_monet2: 0.2454 - monet_gen_loss: 0.4548 - photo_disc_loss: 0.6934
+Epoch 4/8
+1407/1407 [==============================] - 3339s 2s/step - monet_head_loss1: 0.8171 - monet_head_loss2: 0.6418 - disc_real_monet: 0.2789 - disc_fake_monet: -0.2225 - disc_real_monet2: -0.1964 - disc_fake_monet2: 0.2028 - monet_gen_loss: 0.4274 - photo_disc_loss: 0.7497
+Epoch 5/8
+1407/1407 [==============================] - 3339s 2s/step - monet_head_loss1: 0.8182 - monet_head_loss2: 0.6425 - disc_real_monet: 0.2686 - disc_fake_monet: -0.2404 - disc_real_monet2: -0.1951 - disc_fake_monet2: 0.2014 - monet_gen_loss: 0.4339 - photo_disc_loss: 0.7686
+Epoch 6/8
+1407/1407 [==============================] - 3339s 2s/step - monet_head_loss1: 0.8032 - monet_head_loss2: 0.6358 - disc_real_monet: 0.2821 - disc_fake_monet: -0.2739 - disc_real_monet2: -0.2141 - disc_fake_monet2: 0.2195 - monet_gen_loss: 0.4517 - photo_disc_loss: 0.7887
+Epoch 7/8
+1407/1407 [==============================] - 3338s 2s/step - monet_head_loss1: 0.7973 - monet_head_loss2: 0.6332 - disc_real_monet: 0.2919 - disc_fake_monet: -0.2959 - disc_real_monet2: -0.2313 - disc_fake_monet2: 0.2332 - monet_gen_loss: 0.4650 - photo_disc_loss: 0.8522
+Epoch 8/8
+1407/1407 [==============================] - 3338s 2s/step - monet_head_loss1: 0.7756 - monet_head_loss2: 0.6222 - disc_real_monet: 0.3233 - disc_fake_monet: -0.3422 - disc_real_monet2: -0.2709 - disc_fake_monet2: 0.2685 - monet_gen_loss: 0.4930 - photo_disc_loss: 0.7948
+220/220 [==============================] - 32s 139ms/step
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 1), dtype=float32, numpy=array([[10.77516]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="output">
+<h2>6.Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h2>
+<p>Hãy chạy thử vài ví dụ để xem mô hình có hiệu quả không</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">img</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">photo_ds</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)):</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">monet_generator</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="p">(</span><span class="n">prediction</span> <span class="o">*</span> <span class="mf">127.5</span> <span class="o">+</span> <span class="mf">127.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">127.5</span> <span class="o">+</span> <span class="mf">127.5</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Input Photo&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Monet-esque&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8224835f5efeee1ba7d48be606d04490cff58b71e887eab8a1229f730be8d240.png" src="_images/8224835f5efeee1ba7d48be606d04490cff58b71e887eab8a1229f730be8d240.png" />
+</div>
+</div>
+<p>Woa, thật tuyệt vời! Bạn đã tạo ra ảnh Monet thực thụ từ những bức ảnh thường rồi :))</p>
+<p>Bây giờ, hãy tạo tất cả ảnh Monet và nộp bài thôi nào</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">images_dir</span> <span class="o">=</span> <span class="s2">&quot;../images&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">images_dir</span><span class="p">):</span>            <span class="c1">#kiểm tra và tạo thư mục images</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">images_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PIL</span>
+<span class="o">!</span><span class="w"> </span>mkdir<span class="w"> </span>../images
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mkdir: cannot create directory &#39;../images&#39;: File exists
+</pre></div>
+</div>
+</div>
+</div>
+<p>Chạy qua từng ảnh trong photo_ds và biến đổi nó thành ảnh Monet</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">photo_ds</span><span class="p">:</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">monet_generator</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="p">(</span><span class="n">prediction</span> <span class="o">*</span> <span class="mf">127.5</span> <span class="o">+</span> <span class="mf">127.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;../images/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.jpg&quot;</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lưu trữ các ảnh tạo Monet thành tệp zip</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shutil</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span><span class="s2">&quot;/kaggle/working/images&quot;</span><span class="p">,</span> <span class="s1">&#39;zip&#39;</span><span class="p">,</span> <span class="s2">&quot;/kaggle/images&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;/kaggle/working/images.zip&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion">
+<h2>7.Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Vậy là chúng ta đã tìm hiểu mô hình thú vị GAN rồi! Hãy tiếp tục học thêm nhiều điều thú vị nữa nhé!</p>
+<p>“Hãy hướng về mặt trời, bóng tối sẽ ngả phía sau bạn” Helen Keller</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="NLP%20with%20Disaster%20tweet_detailed.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">NLP with Diaster Disaster tweet - detailed</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">0.Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">1. Load data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differentiable-augmentation">2.Differentiable Augmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xu-ly-du-lieu">Xử lý dữ liệu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fid-frechet-inception-distance">2. FID (Frechet Inception Distance)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generator">3. Generator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discriminator">4. Discriminator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model">5. Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">6.Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">7.Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
